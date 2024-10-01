@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    Animator idle;
-    [SerializeField]
-    Animator move;
     const float DefaultSpeed = 2.5f;
     // Start is called before the first frame update
     void Start()
@@ -16,17 +12,22 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(Input.GetKey(KeyCode.D))
+        transform.GetComponent<Animator>().ResetTrigger("RunTrigger");
+        if (Input.GetKey(KeyCode.D))
         {
             transform.position += new Vector3(DefaultSpeed, 0) * Time.deltaTime;
             transform.GetComponent<SpriteRenderer>().flipX = false;
+
+            transform.GetComponent<Animator>().SetTrigger("RunTrigger");
         }
-        if(Input.GetKey(KeyCode.A))
+        else if(Input.GetKey(KeyCode.A))
         {
             transform.position += new Vector3(-DefaultSpeed, 0) * Time.deltaTime;
             transform.GetComponent<SpriteRenderer>().flipX = true;
+            transform.GetComponent<Animator>().SetTrigger("RunTrigger");
         }
+        
+
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             transform.GetComponent<Rigidbody2D>().gravityScale *= -1;
