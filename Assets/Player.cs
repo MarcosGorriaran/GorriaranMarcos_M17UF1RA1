@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    const float DefaultSpeed = 2.5f;
+    private static Player instance;
+    [SerializeField]
+    float speed = 3f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(instance != null)
+        {
+            Destroy(this);
+        }
+        instance = this;
+        DontDestroyOnLoad(this);
     }
 
     // Update is called once per frame
@@ -15,14 +22,14 @@ public class Player : MonoBehaviour
         transform.GetComponent<Animator>().ResetTrigger("RunTrigger");
         if (Input.GetKey(KeyCode.D))
         {
-            transform.position += new Vector3(DefaultSpeed, 0) * Time.deltaTime;
+            transform.position += new Vector3(speed, 0) * Time.deltaTime;
             transform.GetComponent<SpriteRenderer>().flipX = false;
 
             transform.GetComponent<Animator>().SetTrigger("RunTrigger");
         }
         else if(Input.GetKey(KeyCode.A))
         {
-            transform.position += new Vector3(-DefaultSpeed, 0) * Time.deltaTime;
+            transform.position += new Vector3(-speed, 0) * Time.deltaTime;
             transform.GetComponent<SpriteRenderer>().flipX = true;
             transform.GetComponent<Animator>().SetTrigger("RunTrigger");
         }
