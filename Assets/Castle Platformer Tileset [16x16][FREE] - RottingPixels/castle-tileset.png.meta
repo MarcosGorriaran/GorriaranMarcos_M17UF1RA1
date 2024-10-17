@@ -93,6 +93,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -2032,8 +2045,8 @@ TextureImporter:
       name: castle-tileset_92
       rect:
         serializedVersion: 2
-        x: 0
-        y: 48
+        x: 80
+        y: 64
         width: 16
         height: 16
       alignment: 0
@@ -2045,6 +2058,27 @@ TextureImporter:
       bones: []
       spriteID: fc6762d6ef8e7d345aca9f54dbb6ac33
       internalID: 345289329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: castle-tileset_93
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 101abef04279ad920bd33b66fb57e2de
+      internalID: 456665182
       vertices: []
       indices: 
       edges: []
@@ -2153,6 +2187,7 @@ TextureImporter:
       castle-tileset_90: -1845811592
       castle-tileset_91: -344989204
       castle-tileset_92: 345289329
+      castle-tileset_93: 456665182
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

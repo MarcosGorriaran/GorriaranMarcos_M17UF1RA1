@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IMove
 {
     private static Player instance;
     [SerializeField]
@@ -8,12 +8,13 @@ public class Player : MonoBehaviour
     [SerializeField]
     GroundDetection groundDetect;
     float height;
+    bool dead = false;
     // Start is called before the first frame update
     private void Awake()
     {
         if (instance != null)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
         instance = this;
         DontDestroyOnLoad(this);
@@ -28,6 +29,14 @@ public class Player : MonoBehaviour
     void Update()
     {
         transform.GetComponent<Animator>().ResetTrigger("RunTrigger");
+        if(!dead){
+            Movement();
+        }
+        
+    }
+    public void Movement()
+    {
+        
         if (Input.GetKey(KeyCode.D))
         {
             transform.position += new Vector3(speed, 0) * Time.deltaTime;
@@ -51,5 +60,9 @@ public class Player : MonoBehaviour
             groundDetect.transform.localPosition = new Vector3(0, flipValue ? -height : height, 0);
         }
     }
-
+    public void Kill()
+    {
+        dead = true;
+        transform.GetComponent<Animator>().SetTrigger("Dead");
+    }
 }
