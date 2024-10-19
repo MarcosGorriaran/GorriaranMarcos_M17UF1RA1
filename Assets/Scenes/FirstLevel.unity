@@ -7193,7 +7193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: SecondLevel
-  playerStart: {x: -6.59, y: -3.24}
+  playerStart: {x: -8, y: -3.24}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

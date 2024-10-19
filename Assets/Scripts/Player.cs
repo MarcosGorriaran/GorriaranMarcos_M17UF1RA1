@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IMove
 {
-    private static Player instance;
+    public static Player instance {get; private set;}
     [SerializeField]
     float speed = 3f;
     [SerializeField]
@@ -15,8 +15,11 @@ public class Player : MonoBehaviour, IMove
         if (instance != null)
         {
             Destroy(gameObject);
+            //Destroy(this);
+        }else{
+            instance = this;
         }
-        instance = this;
+        
         DontDestroyOnLoad(this);
     }
     void Start()

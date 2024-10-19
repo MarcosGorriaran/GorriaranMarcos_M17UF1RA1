@@ -2066,8 +2066,8 @@ TextureImporter:
       name: castle-tileset_93
       rect:
         serializedVersion: 2
-        x: 0
-        y: 48
+        x: 96
+        y: 64
         width: 16
         height: 16
       alignment: 0
@@ -2079,6 +2079,27 @@ TextureImporter:
       bones: []
       spriteID: 101abef04279ad920bd33b66fb57e2de
       internalID: 456665182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: castle-tileset_94
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e6407a11e535156b8b0c1884a12c867
+      internalID: 816191503
       vertices: []
       indices: 
       edges: []
@@ -2188,6 +2209,7 @@ TextureImporter:
       castle-tileset_91: -344989204
       castle-tileset_92: 345289329
       castle-tileset_93: 456665182
+      castle-tileset_94: 816191503
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
