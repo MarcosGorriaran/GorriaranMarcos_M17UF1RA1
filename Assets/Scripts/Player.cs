@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour, IMove
+public class Player : MonoBehaviour, IMove, IKillable
 {
     public static Player instance {get; private set;}
     [SerializeField]
