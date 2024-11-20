@@ -1,15 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour, IMove
 {
-    [SerializeField]
-    bool avoidHazards;
-    [SerializeField]
-    bool avoidFalls;
     [SerializeField]
     float xDirection;
     [SerializeField]
@@ -17,6 +14,7 @@ public class Enemy : MonoBehaviour, IMove
     [SerializeField]
     float speed;
     Vector2 castPosition;
+    const int ColliderLayer = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,36 +25,19 @@ public class Enemy : MonoBehaviour, IMove
     // Update is called once per frame
     void Update()
     {
-        castPosition = transform.GetChild(0).transform.position;
+        castPosition = transform.position;
         float gravityDirection = NormalizeGravityDirection(GetComponent<Rigidbody2D>().gravityScale);
-        RaycastHit2D rayToGround = Physics2D.Raycast(castPosition,new Vector2(xDirection,gravityDirection),detectionRange);
-        if (avoidHazards)
-        {
-            if(rayToGround.collider.gameObject.TryGetComponent<HazardTerrain>(out _))
-            {
-                xDirection *= -1;
-            }
-        }
-        if (avoidFalls)
-        {
-            if(rayToGround.collider.gameObject == null)
-            {
-                xDirection *= -1;
-            }
-        }
+        SpriteYOrientation(gravityDirection);
+        SpriteXOrientation(xDirection);
         try
         {
             Debug.DrawRay(castPosition, new Vector2(xDirection, 0), Color.red);
             Ray2D ray = new Ray2D(castPosition, new Vector2(xDirection, 0));
-            RaycastHit2D straightRay = Physics2D.Raycast(castPosition, new Vector2(xDirection, 0), detectionRange);
-            
-            if (straightRay.collider.gameObject.TryGetComponent(out BoxCollider2D collider))
-            {
-                if (!collider.isTrigger)
-                {
-                    xDirection *= -1;
-                }
+            RaycastHit2D[] straightRay = Physics2D.RaycastAll(castPosition, new Vector2(xDirection, 0), detectionRange);
 
+            if (straightRay.Count()!=0 && straightRay.Where(col=>col.collider.gameObject.layer==ColliderLayer).Count()>0)
+            {
+                xDirection *= -1;
             }
         }
         catch (NullReferenceException)
@@ -64,9 +45,31 @@ public class Enemy : MonoBehaviour, IMove
 
         }
         
-        //Movement();
+        Movement();
     }
 
+    void SpriteYOrientation(float gravityDirection)
+    {
+        SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
+        if(gravityDirection > 0)
+        {
+            sprite.flipY = true;
+        }else if(gravityDirection < 0)
+        {
+            sprite.flipY = false;
+        }
+    }
+    void SpriteXOrientation(float xDirection)
+    {
+        SpriteRenderer sprite = gameObject.GetComponent<SpriteRenderer>();
+        if(xDirection > 0)
+        {
+            sprite.flipX = false;
+        }else if(xDirection < 0)
+        {
+            sprite.flipX = true;
+        }
+    }
     float NormalizeGravityDirection(float gravityValue)
     {
         if (gravityValue > 0)
@@ -81,5 +84,12 @@ public class Enemy : MonoBehaviour, IMove
     public void Movement()
     {
         transform.position += new Vector3(xDirection*speed,0)*Time.deltaTime;
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.TryGetComponent(out Player killTarget))
+        {
+            killTarget.Kill();
+        }
     }
 }
