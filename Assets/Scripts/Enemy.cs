@@ -15,12 +15,10 @@ public class Enemy : MonoBehaviour, IMove
     float speed;
     Vector2 castPosition;
     const int ColliderLayer = 3;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    private static List<Enemy> Instances;
 
-    }
+
+
 
     // Update is called once per frame
     void Update()
@@ -89,7 +87,11 @@ public class Enemy : MonoBehaviour, IMove
     {
         if(collision.gameObject.TryGetComponent(out Player killTarget))
         {
+            transform.GetComponent<Animator>().SetTrigger("KilledPlayer");
+            
             killTarget.Kill();
+            GetComponent<Rigidbody2D>().excludeLayers = 0;
+            enabled = false;
         }
     }
 }

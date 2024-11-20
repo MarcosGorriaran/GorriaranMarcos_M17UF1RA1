@@ -22,6 +22,10 @@ public class Player : MonoBehaviour, IMove, IKillable
         
         DontDestroyOnLoad(this);
     }
+    public bool IsPlayerDead()
+    {
+        return dead;
+    }
     void Start()
     {
         height = GetComponent<BoxCollider2D>().size.y / 2;
@@ -67,5 +71,8 @@ public class Player : MonoBehaviour, IMove, IKillable
     {
         dead = true;
         transform.GetComponent<Animator>().SetTrigger("Dead");
+        Rigidbody2D col = GetComponent<Rigidbody2D>();
+        col.excludeLayers = 2;
+        
     }
 }
