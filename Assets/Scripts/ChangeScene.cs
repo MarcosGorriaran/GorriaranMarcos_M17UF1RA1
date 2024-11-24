@@ -16,11 +16,18 @@ public class ChangeScene : MonoBehaviour
                 Destroy(Player.instance.gameObject);
             }
             ConserveBetweenScenes.DestroyAllInstances();
-            if (Player.instance != null)
+            if (ConserveBetweenScenes.instance != null)
             {
                 Destroy(ConserveBetweenScenes.instance.gameObject);
             }
-            
+            if(PauseGame.instance != null)
+            {
+                Destroy(PauseGame.instance.gameObject);
+            }
+            if(MusicController.instance != null)
+            {
+                Destroy(MusicController.instance.gameObject);
+            }
         }
         SceneManager.LoadScene(sceneName);
     }

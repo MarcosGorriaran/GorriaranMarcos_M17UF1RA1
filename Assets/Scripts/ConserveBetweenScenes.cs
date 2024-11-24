@@ -24,25 +24,26 @@ public class ConserveBetweenScenes : MonoBehaviour
     public static void DestroyInstance(string instanceID)
     {
         Destroy(instances[instanceID]);
+        instances.Remove(instanceID);
     }
     public static void DestroyAllInstances()
     {
-        foreach (string instance in instances.Keys)
+        foreach (GameObject instance in instances.Values)
         {
-            DestroyInstance(instance);
+            Destroy(instance);
         }
+        instances = new Dictionary<string, GameObject> ();
     }
-    public static void AddInstance(string key,GameObject obj)
+    public static void AddInstance(GameObject obj)
     {
-        if (!instances.ContainsKey(key))
+        if (!instances.ContainsKey(obj.name))
         {
             DontDestroyOnLoad(obj);
-            instances.Add(key, obj);
+            instances.Add(obj.name, obj);
         }
         else
         {
             Destroy(obj);
         }
-        
     }
 }

@@ -15,8 +15,12 @@ public class DisableOnChangeScene : MonoBehaviour
         originalyEnabled = new bool[elementsToConserve.Length];
         foreach(GameObject obj in elementsToConserve)
         {
-            ConserveBetweenScenes.AddInstance(obj.name,obj);
+            ConserveBetweenScenes.AddInstance(obj);
         }
+    }
+    private void OnDestroy()
+    {
+        SceneManager.activeSceneChanged -= OnSceneChange;
     }
     private void Start()
     {

@@ -7,8 +7,11 @@ public class Player : MonoBehaviour, IMove, IKillable
     float speed = 3f;
     [SerializeField]
     GroundDetection groundDetect;
+    [SerializeField]
+    AudioSource shiftGravitySound;
     float height;
     bool dead = false;
+    public bool inputDisabled = false;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -36,7 +39,7 @@ public class Player : MonoBehaviour, IMove, IKillable
     void Update()
     {
         transform.GetComponent<Animator>().ResetTrigger("RunTrigger");
-        if(!dead){
+        if(!dead && !inputDisabled){
             Movement();
         }
         
@@ -65,6 +68,7 @@ public class Player : MonoBehaviour, IMove, IKillable
             bool flipValue = transform.GetComponent<SpriteRenderer>().flipY;
             transform.GetComponent<SpriteRenderer>().flipY = flipValue ? false : true;
             groundDetect.transform.localPosition = new Vector3(0, flipValue ? -height : height, 0);
+            shiftGravitySound.Play();
         }
     }
     public void Kill()
@@ -73,6 +77,6 @@ public class Player : MonoBehaviour, IMove, IKillable
         transform.GetComponent<Animator>().SetTrigger("Dead");
         Rigidbody2D col = GetComponent<Rigidbody2D>();
         col.excludeLayers = 2;
-        
+        GameOver.instance.ShowScreen();
     }
 }
