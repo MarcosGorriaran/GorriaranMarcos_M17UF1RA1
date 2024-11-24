@@ -8,6 +8,8 @@ public class Key : MonoBehaviour
     private GameObject[] elementsToDestroy;
     [SerializeField]
     private GameObject[] elementsToActivate;
+    [SerializeField]
+    GameObject[] elementsToDeactivate;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.TryGetComponent<Player>(out _))
@@ -20,7 +22,11 @@ public class Key : MonoBehaviour
             {
                 element.SetActive(true);
             }
-            Destroy(gameObject);
+            foreach(GameObject element in elementsToDeactivate)
+            {
+                element.SetActive(false);
+            }
+            gameObject.SetActive(false);
         }
     }
 }

@@ -9,16 +9,18 @@ public class Spawner : MonoBehaviour
     GameObject elementToSpawn;
     [SerializeField]
     Vector3 spawnOffset;
-    List<GameObject> spawnStack;
+    List<GameObject> spawnStack = new List<GameObject>();
     [SerializeField]
     float timeBeforeFirstSpawn;
     [SerializeField]
     float spawnTime;
-
-    private void Start()
+    private void OnEnable()
     {
-        spawnStack = new List<GameObject>();
         StartCoroutine(SpawnRoutine());
+    }
+    private void OnDisable()
+    {
+        DisableProyectiles();
     }
     private void OnDestroy()
     {
@@ -32,11 +34,27 @@ public class Spawner : MonoBehaviour
             Destroy(element);
         }
     }
+    void DisableProyectiles() 
+    {
+        foreach (GameObject element in spawnStack)
+        {
+            try
+            {
+                element.SetActive(false);
+            }
+            catch (System.Exception)
+            {
+
+            }
+            
+        }
+    }
     private IEnumerator SpawnRoutine()
     {
         yield return new WaitForSeconds(timeBeforeFirstSpawn);
         while (true)
         {
+            spawnStack.RemoveAll(obj=>obj==null);
             GameObject[] inactiveObjects = spawnStack.Where(obj=>!obj.activeSelf).ToArray();
             if (inactiveObjects.Count() > 0)
             {
