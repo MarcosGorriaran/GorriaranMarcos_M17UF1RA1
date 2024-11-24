@@ -148,6 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: FirstLevel
   deleteAllInstances: 1
+  deleteSceneData: 1
 --- !u!1 &926349180138877434
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,6 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Main menu
   deleteAllInstances: 1
+  deleteSceneData: 1
 --- !u!1 &3521285406572315338
 GameObject:
   m_ObjectHideFlags: 0

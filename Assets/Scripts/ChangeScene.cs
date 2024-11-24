@@ -15,11 +15,6 @@ public class ChangeScene : MonoBehaviour
             {
                 Destroy(Player.instance.gameObject);
             }
-            ConserveBetweenScenes.DestroyAllInstances();
-            if (ConserveBetweenScenes.instance != null)
-            {
-                Destroy(ConserveBetweenScenes.instance.gameObject);
-            }
             if(PauseGame.instance != null)
             {
                 Destroy(PauseGame.instance.gameObject);
